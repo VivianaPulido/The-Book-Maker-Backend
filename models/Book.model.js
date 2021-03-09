@@ -1,7 +1,15 @@
 const { Schema, model } = require('mongoose');
+const mongoose= require('mongoose')
 
 
 const bookSchema = new Schema({
+  typeOfProd:{
+    type:String
+  },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
   size:{
     type: String,
     enum: ["Pocket: 10.5x17 cm", "Travel: 14x21 cm", "Standard: 17x21 cm", "Work-book: 19x23 cm"],
@@ -39,13 +47,15 @@ const bookSchema = new Schema({
     type: String,
     required: [true, 'Escribe el título de tu libro porfavor']
   },
-  fileName: {
-    type:String
-  },  
-  filePath: String,
-  coverImgName: String,
-  coverImgPath: String,
-  synopsis: { type: String }
-})
+  // fileName: {
+  //   type:String
+  // },  
+  // filePath: String,
+  // coverImgName: String,
+  // coverImgPath: String,
+},
+{
+  timestamps: true
+});
 
 module.exports = model('Book', bookSchema);

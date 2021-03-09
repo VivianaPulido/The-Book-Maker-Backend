@@ -11,7 +11,7 @@ cloudinary.config({
  
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  folder: 'book-maker', // The name of the folder in cloudinary
+  folder: 'book-maker', // Nombre del folder en cloudinary 
   allowedFormats: ['jpg', 'png', 'pdf'],//este campo se lo había quitado porque creo que si no se lo pones, se queda en aceptar todos por default?
   params: { resource_type: 'raw' },
   filename: function (req, file, cb) {
