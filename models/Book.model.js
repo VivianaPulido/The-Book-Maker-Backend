@@ -12,8 +12,8 @@ const bookSchema = new Schema({
   },
   size:{
     type: String,
-    enum: ["Pocket", "Travel", "Standard", "Work-book"],
-    required: [true, "Selecciona el formato (tamaño) para tu proyecto por favor"]
+    enum: ["Pocket", "Travel", "Standard", "Workbook", "Letter"],
+    //required: [true, "Selecciona el formato (tamaño) para tu proyecto por favor"]
   },
   words: {
     type: Number,
