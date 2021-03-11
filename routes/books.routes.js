@@ -8,7 +8,7 @@ const { check } = require("express-validator")
 
 // Crea proyectos
 router.post('/crear-libro', 
-    //auth,
+    auth,
     [
         check('title', "El título del libro es obligatorio").not().isEmpty()
     ],

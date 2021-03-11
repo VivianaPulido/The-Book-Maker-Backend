@@ -35,7 +35,7 @@ exports.autenticarUsuario = async (req,res) => {
       // Si todo correcto, crear JSON WEB TOKEN
       const payload = {
           usuario: {
-              id: usuario.id
+              id: usuario._id
           }
       }
 
@@ -60,7 +60,7 @@ exports.autenticarUsuario = async (req,res) => {
 
 exports.usuarioAutenticado = async (req, res) => {
   try {
-      const usuario = await User.findById(req.usuario.id).select('-password')
+      const usuario = await User.findById(req.usuario._id).select('-password')
       console.log("usuario:", usuario)
       res.json({usuario})
   } catch(error){

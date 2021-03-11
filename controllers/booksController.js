@@ -14,7 +14,7 @@ exports.crearLibro = async (req, res) => {
         const libro = new Book(req.body)
 
         // Guardar el creador via JWT
-        libro.author = req.usuario.id
+        libro.author = req.usuario._id
 
         // Guardamos el proyecto
         libro.save()
@@ -30,7 +30,7 @@ exports.crearLibro = async (req, res) => {
 // Obtiene todos los proyectos del usuario actual
 exports.obtenerLibros = async (req, res) => {
     try{
-        const libros = await Book.find({ author: req.usuario.id }).sort({creado: -1})
+        const libros = await Book.find({ author: req.usuario._id }).sort({creado: -1})
         res.json({ libros })
 
     } catch(error){
@@ -127,7 +127,7 @@ exports.actualizarLibro = async(req,res) => {
     nuevoLibro.filePath = filePath;
   }
 
-
+////Estoy modificando los id a _id a partir de aqui
  try{
       // Revisar el id
       let libro = await Book.findById(req.params.id)
@@ -138,7 +138,7 @@ exports.actualizarLibro = async(req,res) => {
       }
 
       // Verificar el creador del proyecto
-      if(libro.author.toString() !== req.usuario.id){
+      if(libro.author.toString() !== req.usuario._id){
           return res.status(401).json({msg: "No Autorizado"})
       }    
 
@@ -166,7 +166,7 @@ exports.eliminarLibro = async (req, res) => {
            }
    
            // Verificar el creador del proyecto
-           if(libro.author.toString() !== req.usuario.id){
+           if(libro.author.toString() !== req.usuario._id){
                return res.status(401).json({msg: "No Autorizado"})
            }    
 
@@ -192,8 +192,8 @@ exports.obtenerLibro = async (req, res) => {
        if(!libro) {
            return res.status(404).json({msg: "Libro no encontrado"})
        }
-
-       if(libro.author.toString() !== req.usuario.id){
+console.log("Esto es libro", libro, "esto es req usuario", req.usuario)
+       if(libro.author.toString() !== req.usuario._id){
            return res.status(401).json({msg: "No Autorizado"})
        }    
        res.status(200).json({libro})

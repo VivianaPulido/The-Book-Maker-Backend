@@ -53,7 +53,7 @@ console.log(payload, process.env.SECRETA)
 
   } catch(error){
       console.log(error)
-      res.status(400).send(error.message) 
+      res.status(400).send("Hubo un error") 
   }
 
 } 
