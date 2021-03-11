@@ -1,53 +1,3 @@
-// const {Router} = require('express');
-// const router  = new Router();
-// const mongoose= require('mongoose')
-// const Book= require('../models/Book.model')
-// const uploadCloud = require('../configs/cloudinary.config')
-
-//crear libro
-// router.post('/crear-libro', uploadCloud.single('coverImgPath'), async (req, res, next) => {
-
-//   const {size, words, color, paper, binding, cover, soporte, price, title, synopsis }= await req.body
-//   const fileName= req.file.originalname
-//   const filePath= req.file.path
-//   console.log(req.file)
-  
-
-//   const newBook= await Book.create({size, words, color, paper, binding, cover, soporte, price, title, synopsis, fileName, filePath})
-  
-//   const user= await User.findByIdAndUpdate(userId, { $push: { books: newBook._id}})
-  
-//   res.json({msg: "archivo creado"})
-// })
-
-
-// //eliminar libro
-// router.post('/delete/:id', async(req, res, nest)=> {
-//   const id = req.params.id
-//   //console.log("Este es el id que encuentra", id)
-//   const foundBook= await Book.findByIdAndDelete(id)
-//   res.redirect('/profile')
-// })
-
-
-// //edit book
-// router.post('/edit/:id', uploadCloud.single('filePath'), async(req, res, next) => {
-//   const {size, words, color, paper, binding, cover, soporte, price, title, synopsis }= await req.body
-  
-//   const id= req.params.id
-
-//   if(!req.file){
-//     const bookChanges= await Book.findByIdAndUpdate(id, {$set:{size, words, color, paper, binding, cover, soporte, price, title, synopsis}}) 
-//   }else{
-//     const filePath= req.file.path
-//     const fileName= req.file.originalname
-//     const bookChanges= await Book.findByIdAndUpdate(id, {$set:{size, words, color, paper, binding, cover, soporte, price, title, synopsis, filePath, fileName}})
-//     //console.log('Estos son los cambios:', bookChanges)
-//   }
-//   res.redirect('/profile')
-// })
-
-// module.exports = router;
 
 const express = require('express')
 const router = express.Router()
@@ -56,7 +6,6 @@ const auth = require('../middleware/auth')
 const { check } = require("express-validator")
 
 
-// api/proyectos
 // Crea proyectos
 router.post('/crear-libro', 
     auth,
@@ -88,6 +37,13 @@ router.put("/mis-obras/:id",
 router.delete('/eliminar/:id',
     auth,
     booksController.eliminarLibro 
+)
+
+//Obtener in libro es específico
+
+router.get('/detalles/:id',
+    auth,
+    booksController.obtenerLibro
 )
 
 module.exports = router;

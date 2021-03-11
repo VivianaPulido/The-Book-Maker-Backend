@@ -41,45 +41,114 @@ exports.obtenerLibros = async (req, res) => {
 
 // Actualiza un proyecto
 
+// exports.actualizarLibro = async(req,res) => {
+    
+//     // Revisar si hay errores
+//     const errores = validationResult(req)
+//     if(!errores.isEmpty()){
+//         return res.status(400).json({errores: errores.array()})
+//     }
+
+//     // extraer la información del proyecto
+//     const {title} = req.body
+
+//     // Creamos un proyecto vacío donde le insertaremos la nueva info
+//     const nuevoLibro = {}
+
+//     if(title){ // Anexa el nombre al proyecto
+//         nuevoLibro.title = title;
+//     }
+
+//    try{
+//         // Revisar el id
+//         let libro = await Book.findById(req.params.id)
+        
+//         // Si el proyecto existe o no
+//         if(!libro) {
+//             return res.status(404).json({msg: "Libro no encontrado"})
+//         }
+
+//         // Verificar el creador del proyecto
+//         if(libro.author.toString() !== req.usuario.id){
+//             return res.status(401).json({msg: "No Autorizado"})
+//         }    
+
+//         // Actualizar
+//         libro = await Book.findByIdAndUpdate({_id: req.params.id.toString()}, { $set: nuevoLibro}, {new: true})
+//         res.json({libro})
+
+//     } catch(error){
+//             console.log(error)
+//     }
+// }
+
 exports.actualizarLibro = async(req,res) => {
     
-    // Revisar si hay errores
-    const errores = validationResult(req)
-    if(!errores.isEmpty()){
-        return res.status(400).json({errores: errores.array()})
-    }
+  // Revisar si hay errores
+  const errores = validationResult(req)
+  if(!errores.isEmpty()){
+      return res.status(400).json({errores: errores.array()})
+  }
 
-    // extraer la información del proyecto
-    const {title} = req.body
+  // extraer la información del proyecto
+  const {title, size, words, color, paper, binding, cover, price, coverImgPath, filePath} = req.body
+  console.log(req.body)
+  // Creamos un proyecto vacío donde le insertaremos la nueva info
+  const nuevoLibro = {}
 
-    // Creamos un proyecto vacío donde le insertaremos la nueva info
-    const nuevoLibro = {}
+  if(title){ // Anexa el nombre al proyecto
+      nuevoLibro.title = title;
+  }
+  if(size){ // Anexa el nombre al proyecto
+    nuevoLibro.size = size;
+  }
+  if(words){ // Anexa el nombre al proyecto
+    nuevoLibro.words = words;
+  }
+  if(color){ // Anexa el nombre al proyecto
+    nuevoLibro.color = color;
+  }
+  if(paper){ // Anexa el nombre al proyecto
+    nuevoLibro.paper = paper;
+  }
+  if(binding){ // Anexa el nombre al proyecto
+    nuevoLibro.binding = binding;
+  }
+  if(cover){ // Anexa el nombre al proyecto
+    nuevoLibro.cover = cover;
+  }
+  if(price){ // Anexa el nombre al proyecto
+    nuevoLibro.price = price;
+  }
+  if(coverImgPath){ // Anexa el nombre al proyecto
+    nuevoLibro.coverImgPath = coverImgPath;
+  }
+  if(filePath){ // Anexa el nombre al proyecto
+    nuevoLibro.filePath = filePath;
+  }
 
-    if(title){ // Anexa el nombre al proyecto
-        nuevoLibro.title = title;
-    }
 
-   try{
-        // Revisar el id
-        let libro = await Book.findById(req.params.id)
-        
-        // Si el proyecto existe o no
-        if(!libro) {
-            return res.status(404).json({msg: "Libro no encontrado"})
-        }
+ try{
+      // Revisar el id
+      let libro = await Book.findById(req.params.id)
+      
+      // Si el proyecto existe o no
+      if(!libro) {
+          return res.status(404).json({msg: "Libro no encontrado"})
+      }
 
-        // Verificar el creador del proyecto
-        if(libro.author.toString() !== req.usuario.id){
-            return res.status(401).json({msg: "No Autorizado"})
-        }    
+      // Verificar el creador del proyecto
+      if(libro.author.toString() !== req.usuario.id){
+          return res.status(401).json({msg: "No Autorizado"})
+      }    
 
-        // Actualizar
-        libro = await Book.findByIdAndUpdate({_id: req.params.id.toString()}, { $set: nuevoLibro}, {new: true})
-        res.json({libro})
+      // Actualizar
+      libro = await Book.findByIdAndUpdate({_id: req.params.id.toString()}, { $set: nuevoLibro}, {new: true})
+      res.json({libro})
 
-    } catch(error){
-            console.log(error)
-    }
+  } catch(error){
+          console.log(error)
+  }
 }
 
 
@@ -103,12 +172,33 @@ exports.eliminarLibro = async (req, res) => {
 
            // Eliminar el proyecto
            await Book.findOneAndRemove({_id: req.params.id })
-           res.json({msg: "Proyecto eliminado"})
+           res.status(200).json({msg: "Proyecto eliminado"})
 
     } catch (error) {
-        console.log(error)
+        console.log("es este", error)
         res.status(500).send("Error en el servidor")
     }
 
 
+}
+
+
+// Obtiene un proyecto específico 
+exports.obtenerLibro = async (req, res) => {
+  console.log(req.params)
+  try{
+       let libro = await Book.findById(req.params.id)
+        
+       if(!libro) {
+           return res.status(404).json({msg: "Libro no encontrado"})
+       }
+
+       if(libro.author.toString() !== req.usuario.id){
+           return res.status(401).json({msg: "No Autorizado"})
+       }    
+       res.status(200).json({libro})
+  } catch(error){
+      console.log(error)
+      res.status(500).send('Hubo un error')
+  }
 }
