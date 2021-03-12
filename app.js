@@ -15,7 +15,7 @@ app.use(cors({
   credentials: true,
   "Access-Control-Allow-Credentials": true,
   methods: ['GET','PUT','POST','DELETE','PATCH','OPTIONS'],
-  origin: ["http://localhost:3000"]
+  origin: ["https://bookmaker.netlify.app"]
 }));
 
 // Habilitar express.json. Permitir datos que el usuario envíe.
