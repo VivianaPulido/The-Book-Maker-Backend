@@ -10,16 +10,6 @@ const app = express();
 //conectar a db
 conectarDB()
 
-// Middleware Setup
-//habilitar Cors (¿porque en el archivo de Mike ya no está esa config?)
-// app.use(
-//   cors({
-//     credentials: true,
-//     "Access-Control-Allow-credentials": true,
-//     methods: ["GET", "PUT", "DELETE", "POST"],
-//     origin: ['http://localhost:3000'] // <== this will be the URL of our React app (it will be running on port 3000)
-//   })
-// );
 
 app.use(cors({
   credentials: true,
