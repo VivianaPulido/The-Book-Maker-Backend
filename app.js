@@ -36,12 +36,12 @@ app.use('/', signupRouter);
 app.use('/', bookRouter);
 app.use('/', authRouter)
 
-//en teoría las ultimas 6 lineas son lo mismo que como lo tiene Mike
+
 
 //Arrancar app
 app.listen(PORT, () => {
   console.log(`El servidor está funcionando en el puerto ${PORT}`)
 })
 
-//esta linea la teniamos en modulo 2...porque ya no la usamos?
+
 //module.exports = app;

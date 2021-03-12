@@ -39,48 +39,6 @@ exports.obtenerLibros = async (req, res) => {
     }
 }
 
-// Actualiza un proyecto
-
-// exports.actualizarLibro = async(req,res) => {
-    
-//     // Revisar si hay errores
-//     const errores = validationResult(req)
-//     if(!errores.isEmpty()){
-//         return res.status(400).json({errores: errores.array()})
-//     }
-
-//     // extraer la información del proyecto
-//     const {title} = req.body
-
-//     // Creamos un proyecto vacío donde le insertaremos la nueva info
-//     const nuevoLibro = {}
-
-//     if(title){ // Anexa el nombre al proyecto
-//         nuevoLibro.title = title;
-//     }
-
-//    try{
-//         // Revisar el id
-//         let libro = await Book.findById(req.params.id)
-        
-//         // Si el proyecto existe o no
-//         if(!libro) {
-//             return res.status(404).json({msg: "Libro no encontrado"})
-//         }
-
-//         // Verificar el creador del proyecto
-//         if(libro.author.toString() !== req.usuario.id){
-//             return res.status(401).json({msg: "No Autorizado"})
-//         }    
-
-//         // Actualizar
-//         libro = await Book.findByIdAndUpdate({_id: req.params.id.toString()}, { $set: nuevoLibro}, {new: true})
-//         res.json({libro})
-
-//     } catch(error){
-//             console.log(error)
-//     }
-// }
 
 exports.actualizarLibro = async(req,res) => {
     
